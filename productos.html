@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos - Electro X</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #eaeaea, #000000);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(to right, #1f1f1f, #333);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #00ffcc;
+    }
+
+    header h1 span {
+      color: #fff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    nav a:hover,
+    nav a.activo {
+      background-color: #00ffcc;
+      color: #000;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      background-color: #1f1f1f;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00ffcc;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #productos-container {
+      flex: 2;
+      min-width: 320px;
+    }
+
+    #carrito-container {
+      flex: 1;
+      background-color: #222;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 15px #00ffcc;
+      max-height: 600px;
+      overflow-y: auto;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #carrito-container h3 {
+      text-align: center;
+      color: #00ffcc;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    #carrito-lista {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 450px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    #carrito-lista li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 5px;
+      border-bottom: 1px solid #00ffcc55;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    #total {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #00ffcc;
+      text-align: right;
+    }
+
+    button {
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #vaciar-carrito {
+      margin-top: 15px;
+      background-color: #00ffcc;
+      color: #000;
+      padding: 10px 15px;
+      width: 100%;
+    }
+
+    #vaciar-carrito:hover {
+      background-color: #00cca9;
+    }
+
+    #comprar-carrito {
+      margin-top: 10px;
+      background-color: #00aa66;
+      color: #fff;
+      padding: 12px 15px;
+      width: 100%;
+    }
+
+    #comprar-carrito:hover {
+      background-color: #00894d;
+    }
+
+    #mensaje-compra {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #00cc66;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 5px;
+      display: none;
+    }
+
+    main h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #00ffcc;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    #buscador {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 0 8px #00ffcc;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    .producto {
+      display: flex;
+      align-items: center;
+      background-color: #2a2a2a;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+      gap: 20px;
+      transition: transform 0.2s;
+    }
+
+    .producto:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    .producto img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .producto-info {
+      flex: 1;
+    }
+
+    .producto-info h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #00ffcc;
+    }
+
+    .producto-info p {
+      margin-top: 5px;
+      color: #ccc;
+    }
+
+    .producto-info button.agregar-carrito {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .producto-info button.agregar-carrito:hover {
+      background-color: #00cca9;
+    }
+
+    footer {
+      background-color: #1a1a1a;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      #productos-container, #carrito-container {
+        max-width: 100%;
+        flex: none;
+      }
+
+      #carrito-container {
+        margin-top: 30px;
+        max-height: none;
+      }
+
+      .producto {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .producto img {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Electro <span>X</span></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html" class="activo">Productos</a></li>
+        <li><a href="acerca.html">Acerca de</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="productos-container">
+      <h2>Productos</h2>
+
+      <input type="text" id="buscador" placeholder="Buscar producto..." />
+
+      <div id="productos-lista">
+
+        <!-- 40 productos -->
+        <div class="producto" data-nombre="Lavadora Automática" data-precio="1200000">
+          <img src="imagenes/lavadora.webp" alt="Lavadora Automática" />
+          <div class="producto-info">
+            <h3>Lavadora Automática</h3>
+            <p>Capacidad 20kg. Ahorro energético, múltiples modos y tecnología avanzada.</p>
+            <p><strong>Precio:</strong> $1,200,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Nevera No Frost" data-precio="1500000">
+          <img src="imagenes/nevera.webp" alt="Nevera No Frost" />
+          <div class="producto-info">
+            <h3>Nevera No Frost</h3>
+            <p>400L de capacidad, sistema inverter, diseño moderno.</p>
+            <p><strong>Precio:</strong> $1,500,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Smart TV 55”" data-precio="2000000">
+          <img src="imagenes/tv.jpg" alt="Smart TV 55”" />
+          <div class="producto-info">
+            <h3>Smart TV 55”</h3>
+            <p>Resolución 4K UHD, acceso a apps, control por voz.</p>
+            <p><strong>Precio:</strong> $2,000,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Microondas Digital" data-precio="300000">
+          <img src="imagenes/micro.webp" alt="Microondas Digital" />
+          <div class="producto-info">
+            <h3>Microondas Digital</h3>
+            <p>Potencia de 1000W, función grill, diseño compacto y elegante.</p>
+            <p><strong>Precio:</strong> $300,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Aire Acondicionado Split" data-precio="1800000">
+          <img src="imagenes/aire.jpg" alt="Aire Acondicionado Split" />
+          <div class="producto-info">
+            <h3>Aire Acondicionado Split</h3>
+            <p>Capacidad 12000 BTU, eficiencia energética clase A++.</p>
+            <p><strong>Precio:</strong> $1,800,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Aspiradora Robot" data-precio="600000">
+          <img src="imagenes/aspiradora.webp" alt="Aspiradora Robot" />
+          <div class="producto-info">
+            <h3>Aspiradora Robot</h3>
+            <p>Control por app, sensores anti caída, limpieza automática.</p>
+            <p><strong>Precio:</strong> $600,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Cafetera Espresso" data-precio="250000">
+          <img src="imagenes/cafetera.webp" alt="Cafetera Espresso" />
+          <div class="producto-info">
+            <h3>Cafetera Espresso</h3>
+            <p>Sistema de presión 15 bares, vapor para leche.</p>
+            <p><strong>Precio:</strong> $250,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Laptop Gamer" data-precio="3000000">
+          <img src="imagenes/laptop.jpg" alt="Laptop Gamer" />
+          <div class="producto-info">
+            <h3>Laptop Gamer</h3>
+            <p>Procesador i7, 16GB RAM, tarjeta gráfica GTX 1660 Ti.</p>
+            <p><strong>Precio:</strong> $3,000,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Impresora Multifuncional" data-precio="400000">
+          <img src="imagenes/impresss.jpg" alt="Impresora Multifuncional" />
+          <div class="producto-info">
+            <h3>Impresora Multifuncional</h3>
+            <p>Impresión, escaneo y copiado, conexión Wi-Fi.</p>
+            <p><strong>Precio:</strong> $400,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Smartwatch Deportivo" data-precio="150000">
+          <img src="imagenes/reloj.webp" alt="Smartwatch Deportivo" />
+          <div class="producto-info">
+            <h3>Smartwatch Deportivo</h3>
+            <p>Monitor de frecuencia cardíaca, GPS, resistente al agua.</p>
+            <p><strong>Precio:</strong> $150,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Cámara de Seguridad IP" data-precio="500000">
+          <img src="imagenes/camara.webp" alt="Cámara de Seguridad IP" />
+          <div class="producto-info">
+            <h3>Cámara de Seguridad IP</h3>
+            <p>Resolución 1080p, visión nocturna, detección de movimiento.</p>
+            <p><strong>Precio:</strong> $500,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Iphone 15" data-precio="3800000">
+          <img src="imagenes/iphone.jpg" alt="Iphone 15" />
+          <div class="producto-info">
+            <h3>Iphone 15</h3>
+            <p>Pantalla OLED 6.5", cámara triple, carga rápida.</p>
+            <p><strong>Precio:</strong> $3,800,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Parlante Bluetooth" data-precio="220000">
+          <img src="imagenes/parlante.jpg" alt="Parlante Bluetooth" />
+          <div class="producto-info">
+            <h3>Parlante Bluetooth</h3>
+            <p>Sonido estéreo, batería 12h, resistente al agua.</p>
+            <p><strong>Precio:</strong> $220,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+        <div class="producto" data-nombre="Tablet 10”" data-precio="550000">
+          <img src="imagenes/tablettt.webp" alt="Tablet 10”" />
+          <div class="producto-info">
+            <h3>Tablet 10”</h3>
+            <p>Android 11, pantalla HD, 64GB almacenamiento.</p>
+            <p><strong>Precio:</strong> $550,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Proyector HD" data-precio="700000">
+          <img src="imagenes/videobimwebp.webp" alt="Proyector HD" />
+          <div class="producto-info">
+            <h3>Proyector HD</h3>
+            <p>Resolución 1080p, conexión HDMI, diseño portátil.</p>
+            <p><strong>Precio:</strong> $700,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Robot de Cocina" data-precio="800000">
+          <img src="imagenes/robot.webp" alt="Robot de Cocina" />
+          <div class="producto-info">
+            <h3>Robot de Cocina</h3>
+            <p>Funciones múltiples, capacidad 5L, fácil limpieza.</p>
+            <p><strong>Precio:</strong> $800,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Licuadora de Alta Potencia" data-precio="320000">
+          <img src="imagenes/licuadroa.jpg" alt="Licuadora de Alta Potencia" />
+          <div class="producto-info">
+            <h3>Licuadora de Alta Potencia</h3>
+            <p>Motor de 1200W, múltiples velocidades, jarra de vidrio.</p>
+            <p><strong>Precio:</strong> $320,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Hervidor Eléctrico" data-precio="180000">
+          <img src="imagenes/hervidor.webp" alt="Hervidor Eléctrico" />
+          <div class="producto-info">
+            <h3>Hervidor Eléctrico</h3>
+            <p>Capacidad 1.7L, apagado automático, base giratoria 360°.</p>
+            <p><strong>Precio:</strong> $180,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Calentador de Agua" data-precio="900000">
+          <img src="imagenes/calentador.png" alt="Calentador de Agua" />
+          <div class="producto-info">
+            <h3>Calentador de Agua</h3>
+            <p>Capacidad 50L, control digital, ahorro energético.</p>
+            <p><strong>Precio:</strong> $900,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Ventilador de Torre" data-precio="210000">
+          <img src="imagenes/ventilador.webp" alt="Ventilador de Torre" />
+          <div class="producto-info">
+            <h3>Ventilador de Torre</h3>
+            <p>3 velocidades, temporizador, oscilante.</p>
+            <p><strong>Precio:</strong> $210,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Plancha de Vapor" data-precio="130000">
+          <img src="imagenes/plancha.webp" alt="Plancha de Vapor" />
+          <div class="producto-info">
+            <h3>Plancha de Vapor</h3>
+            <p>Suela antiadherente, función spray, apagado automático.</p>
+            <p><strong>Precio:</strong> $130,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Teclado" data-precio="150000">
+          <img src="imagenes/teclado.webp" alt="teclado" />
+          <div class="producto-info">
+            <h3>Teclado</h3>
+            <p>Teclado Gaming de alta funcionalidad</p>
+            <p><strong>Precio:</strong> $150,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Licuadora Portátil" data-precio="220000">
+          <img src="imagenes/licuadroapor.webp" alt="Licuadora Portátil" />
+          <div class="producto-info">
+            <h3>Licuadora Portátil</h3>
+            <p>Batería recargable, diseño compacto, ideal para viajes.</p>
+            <p><strong>Precio:</strong> $220,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Cámara Web HD" data-precio="120000">
+          <img src="imagenes/camaraaaa.jpg" alt="Cámara Web HD" />
+          <div class="producto-info">
+            <h3>Cámara Web HD</h3>
+            <p>Resolución 720p, micrófono incorporado, plug & play.</p>
+            <p><strong>Precio:</strong> $120,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Mouse Inalámbrico" data-precio="90000">
+          <img src="imagenes/mouse.jpg" alt="Mouse Inalámbrico" />
+          <div class="producto-info">
+            <h3>Mouse Inalámbrico</h3>
+            <p>Conexión Bluetooth, batería de larga duración, ergonómico.</p>
+            <p><strong>Precio:</strong> $90,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Teclado Mecánico" data-precio="250000">
+          <img src="imagenes/tecladoocc.jpg" alt="Teclado Mecánico" />
+          <div class="producto-info">
+            <h3>Teclado Mecánico</h3>
+            <p>Retroiluminado RGB, switch táctil, conexión USB.</p>
+            <p><strong>Precio:</strong> $250,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Bocinas 2.1" data-precio="350000">
+          <img src="imagenes/sonido.webp" alt="Bocinas 2.1" />
+          <div class="producto-info">
+            <h3>Bocinas 2.1</h3>
+            <p>Sonido envolvente, subwoofer potente, control remoto.</p>
+            <p><strong>Precio:</strong> $350,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Cargador Rápido" data-precio="80000">
+          <img src="imagenes/cargador.webp" alt="Cargador Rápido" />
+          <div class="producto-info">
+            <h3>Cargador Rápido</h3>
+            <p>Compatible con dispositivos USB-C y USB-A.</p>
+            <p><strong>Precio:</strong> $80,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Memoria USB 64GB" data-precio="75000">
+          <img src="imagenes/usb.webp" alt="Memoria USB 64GB" />
+          <div class="producto-info">
+            <h3>Memoria USB 64GB</h3>
+            <p>Alta velocidad de transferencia, diseño compacto.</p>
+            <p><strong>Precio:</strong> $75,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Disco Duro Externo 1TB" data-precio="450000">
+          <img src="imagenes/tera.jpg" alt="Disco Duro Externo 1TB" />
+          <div class="producto-info">
+            <h3>Disco Duro Externo 1TB</h3>
+            <p>USB 3.0, resistente a golpes, diseño delgado.</p>
+            <p><strong>Precio:</strong> $450,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Monitor LED 24”" data-precio="900000">
+          <img src="imagenes/monitorcheq.webp" alt="Monitor LED 24”" />
+          <div class="producto-info">
+            <h3>Monitor LED 24”</h3>
+            <p>Resolución Full HD, entrada HDMI y VGA.</p>
+            <p><strong>Precio:</strong> $900,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Auriculares Inalámbricos" data-precio="430000">
+          <img src="imagenes/inalambric.webp" alt="Auriculares Inalámbricos" />
+          <div class="producto-info">
+            <h3>Auriculares Inalámbricos</h3>
+            <p>Cancelación de ruido, batería 20h, diseño ergonómico.</p>
+            <p><strong>Precio:</strong> $430,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Ventilador de Pie" data-precio="220000">
+          <img src="imagenes/ventiladortt.webp" alt="Ventilador de Pie" />
+          <div class="producto-info">
+            <h3>Ventilador de Pie</h3>
+            <p>3 velocidades, oscilante, base antideslizante.</p>
+            <p><strong>Precio:</strong> $220,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Extractor de Jugos" data-precio="330000">
+          <img src="imagenes/extractor.webp" alt="Extractor de Jugos" />
+          <div class="producto-info">
+            <h3>Extractor de Jugos</h3>
+            <p>Potencia 800W, fácil limpieza, diseño moderno.</p>
+            <p><strong>Precio:</strong> $330,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Licuadora para Smoothies" data-precio="300000">
+          <img src="imagenes/licuadora.jpg" alt="Licuadora para Smoothies" />
+          <div class="producto-info">
+            <h3>Licuadora para Smoothies</h3>
+            <p>Jarra portátil, motor silencioso, batería recargable.</p>
+            <p><strong>Precio:</strong> $300,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Monitor Gaming" data-precio="1200000">
+          <img src="imagenes/monitorggg.jpg" alt="monitor Gaming" />
+          <div class="producto-info">
+            <h3>Monitor Gaming</h3>
+            <p>Encendido automático, alta eficiencia, seguro y fiable.</p>
+            <p><strong>Precio:</strong> $1,200,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Estufa de Inducción" data-precio="850000">
+          <img src="imagenes/estufa.webp" alt="Estufa de Inducción" />
+          <div class="producto-info">
+            <h3>Estufa de Inducción</h3>
+            <p>Control táctil, 10 niveles de temperatura, apagado automático.</p>
+            <p><strong>Precio:</strong> $850,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Licuadora Personal" data-precio="180000">
+          <img src="imagenes/personal.webp" alt="Licuadora Personal" />
+          <div class="producto-info">
+            <h3>Licuadora Personal</h3>
+            <p>Ideal para batidos individuales, vaso portátil.</p>
+            <p><strong>Precio:</strong> $180,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Cafetera de Cápsulas" data-precio="280000">
+          <img src="imagenes/cafeteramm.webp" alt="Cafetera de Cápsulas" />
+          <div class="producto-info">
+            <h3>Cafetera de Cápsulas</h3>
+            <p>Fácil uso, rápida preparación, diseño compacto.</p>
+            <p><strong>Precio:</strong> $280,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto" data-nombre="Mouse Gamer 2.0" data-precio="200000">
+          <img src="imagenes/gamer mouse.jpg" alt="Mouse Gamer 2.0" />
+          <div class="producto-info">
+            <h3>Mouse Gamer 2.0</h3>
+            <p>Eficiencia energética, portátil, seguro para uso en interiores.</p>
+            <p><strong>Precio:</strong> $200,000</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="carrito-container">
+      <h3>Carrito de Compras</h3>
+      <ul id="carrito-lista">
+        <!-- Productos agregados aparecerán aquí -->
+      </ul>
+      <div id="total">Total: $0</div>
+      <button id="vaciar-carrito">Vaciar carrito</button>
+      <button id="comprar-carrito">Comprar</button>
+      <div id="mensaje-compra">¡Su compra se ha realizado exitosamente!</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Electro X - Todos los derechos reservados - Kevin Calderon</p>
+  </footer>
+
+  <script>
+    const buscador = document.getElementById('buscador');
+    const productos = document.querySelectorAll('#productos-lista .producto');
+    const carritoLista = document.getElementById('carrito-lista');
+    const totalCarrito = document.getElementById('total');
+    const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+    const comprarCarritoBtn = document.getElementById('comprar-carrito');
+    const mensajeCompra = document.getElementById('mensaje-compra');
+
+    let carrito = {};
+
+    buscador.addEventListener('input', function () {
+      const texto = this.value.toLowerCase();
+
+      productos.forEach(producto => {
+        const nombre = producto.querySelector('h3').textContent.toLowerCase();
+        const descripcion = producto.querySelector('p').textContent.toLowerCase();
+
+        if (nombre.includes(texto) || descripcion.includes(texto)) {
+          producto.style.display = 'flex';
+        } else {
+          producto.style.display = 'none';
+        }
+      });
+    });
+
+    function actualizarCarrito() {
+      carritoLista.innerHTML = '';
+      let total = 0;
+
+      Object.values(carrito).forEach(producto => {
+        const li = document.createElement('li');
+        li.textContent = `${producto.nombre} x${producto.cantidad} - $${(producto.precio * producto.cantidad).toLocaleString()}`;
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'X';
+        btnEliminar.style.background = '#ff4444';
+        btnEliminar.style.border = 'none';
+        btnEliminar.style.color = '#fff';
+        btnEliminar.style.marginLeft = '10px';
+        btnEliminar.style.cursor = 'pointer';
+        btnEliminar.style.borderRadius = '3px';
+        btnEliminar.style.fontWeight = 'bold';
+        btnEliminar.style.padding = '2px 6px';
+        btnEliminar.title = 'Eliminar producto';
+
+        btnEliminar.addEventListener('click', () => {
+          eliminarProducto(producto.nombre);
+        });
+
+        li.appendChild(btnEliminar);
+        carritoLista.appendChild(li);
+
+        total += producto.precio * producto.cantidad;
+      });
+
+      totalCarrito.textContent = `Total: $${total.toLocaleString()}`;
+      // Hide success message if visible after update
+      mensajeCompra.style.display = 'none';
+    }
+
+    function eliminarProducto(nombre) {
+      if (carrito[nombre]) {
+        carrito[nombre].cantidad--;
+        if (carrito[nombre].cantidad <= 0) {
+          delete carrito[nombre];
+        }
+        actualizarCarrito();
+      }
+    }
+
+    vaciarCarritoBtn.addEventListener('click', () => {
+      carrito = {};
+      actualizarCarrito();
+      mensajeCompra.style.display = 'none';
+    });
+
+    comprarCarritoBtn.addEventListener('click', () => {
+      if (Object.keys(carrito).length === 0) {
+        alert('El carrito está vacío. Agrega productos antes de comprar.');
+        return;
+      }
+      carrito = {};
+      actualizarCarrito();
+      mensajeCompra.style.display = 'block';
+    });
+
+    document.querySelectorAll('.agregar-carrito').forEach(button => {
+      button.addEventListener('click', () => {
+        const productoEl = button.closest('.producto');
+        const nombre = productoEl.dataset.nombre;
+        const precio = parseInt(productoEl.dataset.precio);
+
+        if (carrito[nombre]) {
+          carrito[nombre].cantidad++;
+        } else {
+          carrito[nombre] = { nombre, precio, cantidad: 1 };
+        }
+
+        actualizarCarrito();
+      });
+    });
+
+  </script>
+</body>
+</html>
+
+```

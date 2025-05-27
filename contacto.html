@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contacto - Electro X</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: linear-gradient(to bottom, #eaeaea, #000000);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(to right, #1f1f1f, #333);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #00ffcc;
+    }
+    header h1 span {
+      color: #fff;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+      gap: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    nav a:hover,
+    nav a.activo {
+      background-color: #00ffcc;
+      color: #000;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: #1f1f1f;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    main h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #00ffcc;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      color: #00ffcc;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: 2px solid #00ffcc;
+      background-color: #333;
+      color: #fff;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    button {
+      background-color: #00ffcc;
+      border: none;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 10px;
+      color: #000;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #00ccaa;
+    }
+
+    .info-contacto {
+      margin-top: 40px;
+      font-size: 1.1rem;
+      color: #ccc;
+      border-top: 1px solid #00ffcc;
+      padding-top: 30px;
+    }
+
+    .info-contacto p {
+      margin: 8px 0;
+    }
+
+    .mensaje-exito {
+      display: none;
+      margin-top: 30px;
+      background-color: #00ffcc;
+      color: #000;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      background-color: #1a1a1a;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Electro <span>X</span></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="acerca.html">Acerca de</a></li>
+        <li><a href="contacto.html" class="activo">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Contacto</h2>
+
+    <form id="form-contacto" action="#" method="post">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" name="telefono" placeholder="+57 300 123 4567" />
+
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div id="mensaje-exito" class="mensaje-exito">
+      ¡Gracias por contactarnos! Tu solicitud fue enviada con éxito.<br>
+      En unas horas uno de nuestros agentes se pondrá en contacto contigo. 😊
+    </div>
+
+    <div class="info-contacto">
+      <p><strong>Dirección:</strong> Calle 16 #46-56, Giron, Santander - Colombia</p>
+      <p><strong>Teléfono:</strong> +57 310 447 5797</p>
+      <p><strong>Email:</strong> contacto@electrox.com</p>
+      <p><strong>Horario de atención:</strong> Lunes a Viernes, 9:00 am - 6:00 pm</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Electro X - Todos los derechos reservados - Kevin Calderon</p>
+  </footer>
+
+  <script>
+    document.getElementById("form-contacto").addEventListener("submit", function (e) {
+      e.preventDefault(); // Evita el envío tradicional
+
+      this.reset(); // Limpia el formulario
+
+      // Muestra el mensaje de éxito
+      const mensaje = document.getElementById("mensaje-exito");
+      mensaje.style.display = "block";
+
+      // Oculta el mensaje después de 5 segundos (opcional)
+      setTimeout(() => {
+        mensaje.style.display = "none";
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

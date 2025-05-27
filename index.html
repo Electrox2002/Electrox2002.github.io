@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electro X</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Electro <span>X</span></h1>
+    <nav>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="acerca.html">Acerca de</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="carrito">
+        🛒 <span>Carrito de compra</span>
+        <ul class="lista-carrito"></ul> <!-- Lista para mostrar los productos -->
+        <div class="total-carrito">Total: $0 COP</div> <!-- Mostrar el total -->
+    </div>
+  </header>
+
+  <main>
+    <section class="video-bienvenida">
+      <h2>Bienvenido a Electro X</h2>
+      <video controls>
+        <source src="videos/Enzo.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de videos.
+      </video>
+    </section>
+
+    <section class="productos">
+      <div class="producto">
+        <img src="imagenes/teclado.jpg" alt="Teclado" />
+        <h3>Teclado XTech - Gamer</h3>
+        <p>$319.900 COP</p>
+        <button onclick="agregarAlCarrito('Teclado XTech', 319900)">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="imagenes/mose.png" alt="Mouse" />
+        <h3>Mouse Genius</h3>
+        <p>$89.900 COP</p>
+        <button onclick="agregarAlCarrito('Mouse Genius', 89900)">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="imagenes/impresora.png" alt="Impresora" />
+        <h3>Impresora EPSON EcoTank L121</h3>
+        <p>$629.900 COP</p>
+        <button onclick="agregarAlCarrito('Impresora EPSON', 629900)">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="imagenes/bafle.jpg" alt="Bafle" />
+        <h3>Bafle (ElectroX)</h3>
+        <p>$25.000 COP</p>
+        <button onclick="agregarAlCarrito('Bafle', 25000)">Agregar al carrito</button>
+      </div>
+    </section>
+
+    <section class="banner">
+      <h2>Promociones Especiales</h2>
+      <p>Aprovecha descuentos únicos en nuestros productos destacados.</p>
+      <div class="promociones">
+        <div class="producto">
+          <img src="imagenes/portatilhp.avif" alt="Portátil HP" />
+          <h3>Portátil HP 15.6"</h3>
+          <p><del>$2.199.000</del> <strong>$1.799.000 COP</strong></p>
+          <button onclick="agregarAlCarrito('Portátil HP', 1799000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/audifonos.webp" alt="Audífonos Gamer" />
+          <h3>Audífonos Gamer RGB</h3>
+          <p><del>$199.900</del> <strong>$129.900 COP</strong></p>
+          <button onclick="agregarAlCarrito('Audífonos Gamer', 129900)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/mouseg.webp" alt="Mouse Gamer" />
+          <h3>Mouse Gamer X7</h3>
+          <p><del>$129.000</del> <strong>$89.000 COP</strong></p>
+          <button onclick="agregarAlCarrito('Mouse Gamer X7', 89000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/tablet2.jpg" alt="Tablet Samsung" />
+          <h3>Tablet Samsung 8"</h3>
+          <p><del>$899.000</del> <strong>$749.000 COP</strong></p>
+          <button onclick="agregarAlCarrito('Tablet Samsung', 749000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/teclagog.webp" alt="Teclado Mecánico" />
+          <h3>Teclado Mecánico RGB</h3>
+          <p><del>$249.000</del> <strong>$179.000 COP</strong></p>
+          <button onclick="agregarAlCarrito('Teclado Mecánico RGB', 179000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/camara.jpg" alt="Webcam HD" />
+          <h3>Webcam HD 1080p</h3>
+          <p><del>$149.900</del> <strong>$109.000 COP</strong></p>
+          <button onclick="agregarAlCarrito('Webcam HD', 109000)">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="recomendados">
+      <h2>Productos Recomendados</h2>
+      <p>Basado en tus intereses y compras recientes.</p>
+      <div class="productos">
+        <div class="producto">
+          <img src="imagenes/memoria.webp" alt="Disco SSD" />
+          <h3>Disco SSD 480GB Kingston</h3>
+          <p>$199.000 COP</p>
+          <button onclick="agregarAlCarrito('Disco SSD 480GB', 199000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/wifi.webp" alt="Router WiFi" />
+          <h3>Router WiFi TP-Link AC1200</h3>
+          <p>$149.000 COP</p>
+          <button onclick="agregarAlCarrito('Router WiFi', 149000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="imagenes/memoriaram.webp" alt="Memoria RAM" />
+          <h3>Memoria RAM 8GB DDR4</h3>
+          <p>$129.000 COP</p>
+          <button onclick="agregarAlCarrito('Memoria RAM 8GB', 129000)">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="extras">
+      <h2>Explora más</h2>
+
+      <div class="link-scratch">
+        <p><strong>¡Juega nuestro mini juego en línea!</strong></p>
+        <a href="https://scratch.mit.edu/projects/1152680726/fullscreen/" target="_blank">Ir al juego en Scratch</a>
+      </div>
+
+      <div class="appinventor-qr">
+        <p><strong>Escanea para acceder a nuestra App en AppInventor:</strong></p>
+        <img src="imagenes/QR DE APP INVENTOR.png" alt="QR AppInventor" width="200" />
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Información de Contacto: contacto@electrox.com | Tel: +57 310 447 5797</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
